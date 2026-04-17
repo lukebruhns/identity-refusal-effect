@@ -27,9 +27,23 @@ except ImportError:
     sys.exit(1)
 
 
+PAPER_MODELS = [
+    'claude-haiku-45', 'claude-opus-46', 'claude-sonnet-4',
+    'deepseek-r1-8b', 'gemini-25-flash', 'gemini-25-pro',
+    'gemma2-9b', 'gpt-4o', 'gpt-4o-mini',
+    'grok-3-mini', 'grok-4-fast', 'grok-420-reasoning',
+    'llama31-70b-instruct', 'llama31-8b',
+    'mistral-7b', 'mistral-small-24b',
+    'nemotron-nano-30b', 'olmo2-32b-instruct',
+    'phi4-14b', 'qwen25-7b',
+]
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--csv", default=None, help="Path to responses.csv")
+    parser.add_argument("--all-models", action="store_true",
+                        help="Include all models in CSV (default: paper's 20)")
     args = parser.parse_args()
 
     if args.csv:
@@ -50,6 +64,13 @@ def main():
                 sys.exit(1)
 
     print(f"Loaded {len(df)} item-level responses")
+
+    if not args.all_models:
+        df = df[df['model'].isin(PAPER_MODELS)]
+        print(f"Filtered to {len(PAPER_MODELS)} paper models ({len(df)} rows)")
+    else:
+        print(f"Using all {df['model'].nunique()} models ({len(df)} rows)")
+
     print(f"Models: {df['model'].nunique()}")
     print(f"Conditions: {df['condition'].unique().tolist()}")
     print()
