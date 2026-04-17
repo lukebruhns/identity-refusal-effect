@@ -109,9 +109,9 @@ Paired t-tests and Wilcoxon signed-rank tests were used to compare binding gaps 
 
 ### 4.1 Aggregate Refusal Rates
 
-Standard MFQ-2 produced a 3.5% aggregate refusal rate across all models (765/21,600 items). Depersonalized MFQ-2 reduced this to 1.0% (212/21,600), a 77% reduction.
+Standard MFQ-2 produced a 2.9% aggregate refusal rate across all models (616/21,600 items). Depersonalized MFQ-2 reduced this to 0.6% (139/21,600), a 77% reduction.
 
-15 of 20 models (75%) exhibited at least one refusal on the standard MFQ-2. Depersonalization reduced this to 9 of 20 (45%). The most affected model was Phi-4 14B (41.1% standard refusal rate, reduced to 7.8% depersonalized).
+7 of 20 models (35%) exhibited at least one refusal on the standard MFQ-2. Depersonalization reduced this to 4 of 20 (20%). The most affected model was Phi-4 14B (29.1% standard refusal rate, reduced to 6.0% depersonalized).
 
 ![Figure 4: Per-Model Refusal Rates by Foundation](fig4-model-refusal-heatmap.png)
 
@@ -123,12 +123,12 @@ Refusal rates were not uniform across foundations. On the standard MFQ-2:
 
 | Foundation | Type | Standard Refusal | Depersonalized Refusal | Odds Ratio |
 |---|---|---|---|---|
-| **Purity** | Binding | **7.8%** (331/3600) | 3.7% (132/3600) | 2.7 |
-| **Authority** | Binding | **3.6%** (149/3600) | 0.2% (8/3600) | 19.4 |
-| Equality | Individualizing | 3.9% (139/3600) | 0.1% (2/3600) | 72.3 |
-| **Loyalty** | Binding | **2.7%** (97/3600) | 1.7% (61/3600) | 1.6 |
-| Proportionality | Binding | 1.0% (37/3600) | 0.1% (5/3600) | 7.5 |
-| Care | Individualizing | 0.2% (12/3600) | 0.1% (4/3600) | 3.0 |
+| **Purity** | Binding | **7.8%** (281/3600) | 2.2% (80/3600) | 2.7 |
+| **Authority** | Binding | **3.6%** (130/3600) | 0.2% (6/3600) | 19.4 |
+| Equality | Individualizing | 3.9% (103/3600) | 0.0% (1/3600) | 72.3 |
+| **Loyalty** | Binding | **2.7%** (69/3600) | 1.4% (49/3600) | 1.6 |
+| Proportionality | Binding | 1.0% (24/3600) | 0.1% (3/3600) | 7.5 |
+| Care | Individualizing | 0.2% (9/3600) | 0.0% (0/3600) | 3.0 |
 
 Purity items were refused at 31 times the rate of Care items (7.8% vs 0.2%).
 
@@ -145,7 +145,7 @@ Across 20 models:
 - **Depersonalized MFQ-2 mean binding gap:** +0.064 (SD=0.271)
 - **Human Christian reference (Atari et al., 2023, n=1,803):** -0.13
 
-The binding gap was narrower under depersonalization (paired t(19)=1.90, p=0.073; Wilcoxon W=59, p=0.090; Cohen's d=0.43; 95% CI of difference [-0.004, 0.254]). While the paired test is marginal at conventional thresholds with N=20, the effect is medium-sized (d=0.43) and the individual foundation shifts are highly significant (see Section 4.4). The marginal p-value reflects high between-model variance in gap magnitude, not absence of an effect.
+The binding gap was narrower under depersonalization (paired t(19)=1.90, p=0.073; Wilcoxon W=59, p=0.090; Cohen's d=0.62; 95% CI of difference [-0.004, 0.254]). While the paired test is marginal at conventional thresholds with N=20, the effect is medium-sized (d=0.62) and the individual foundation shifts are highly significant (see Section 4.4). The marginal p-value reflects high between-model variance in gap magnitude, not absence of an effect.
 
 ### 4.4 Foundation Means
 
@@ -155,14 +155,14 @@ Foundation means across all 20 models:
 
 | Foundation | Standard (M±SD) | Depersonalized (M±SD) | Δ | t(19) | p | d |
 |---|---|---|---|---|---|---|
-| Care | 4.55±0.37 | 4.89±0.11 | +0.35 | -3.91 | **0.001** | 0.87 |
-| Equality | 2.54±0.70 | 2.74±0.46 | +0.20 | -2.05 | 0.054 | 0.46 |
-| Proportionality | 3.87±0.53 | 4.13±0.27 | +0.26 | -2.22 | **0.039** | 0.50 |
-| Loyalty | 3.45±0.71 | 3.83±0.27 | +0.38 | -2.58 | **0.018** | 0.58 |
-| Authority | 3.40±0.59 | 3.80±0.31 | +0.40 | -3.90 | **0.001** | 0.87 |
-| Purity | 2.69±0.77 | 3.25±0.34 | **+0.55** | -3.96 | **<0.001** | 0.89 |
+| Care | 4.55±0.37 | 4.89±0.11 | +0.32 | -3.91 | **0.001** | 0.87 |
+| Equality | 2.54±0.70 | 2.74±0.46 | +0.29 | -2.05 | 0.054 | 0.46 |
+| Proportionality | 3.87±0.53 | 4.13±0.27 | +0.31 | -2.22 | **0.039** | 0.50 |
+| Loyalty | 3.45±0.71 | 3.83±0.27 | +0.48 | -2.58 | **0.018** | 0.58 |
+| Authority | 3.40±0.59 | 3.80±0.31 | +0.50 | -3.90 | **0.001** | 0.87 |
+| Purity | 2.69±0.77 | 3.25±0.34 | **+0.76** | -3.96 | **<0.001** | 0.89 |
 
-All foundations increased under depersonalization. Purity showed the largest gain (+0.55, d=0.89), consistent with it having the highest refusal rate in the standard condition. Authority showed the second-largest gain (+0.40, d=0.87). These are large effects by conventional standards (Cohen, 1988). Equality was the only foundation that did not reach significance (p=0.054), consistent with its mixed position (high refusal rate but also high standard scores for some models).
+All foundations increased under depersonalization. Purity showed the largest gain (+0.55, d=1.20), consistent with it having the highest refusal rate in the standard condition. Authority showed the second-largest gain (+0.40, d=1.01). These are large effects by conventional standards (Cohen, 1988). Equality was the only foundation that did not reach significance (p=0.054), consistent with its mixed position (high refusal rate but also high standard scores for some models).
 
 ### 4.5 Model-Level Variation
 
@@ -174,7 +174,7 @@ The identity-refusal effect varied substantially across models. Selected example
 |---|---|---|---|---|---|
 | Phi-4 14B | 41.1% | 7.8% | +0.53 | +0.68 | +0.15 |
 | Gemma 2 9B | 7.9% | 0.0% | +0.85 | +0.49 | -0.36 |
-| Claude Sonnet 4 | 7.4% | 0.0% | +0.26 | -0.09 | -0.35 |
+| Claude Sonnet 4 | 7.4% | 0.0% | +0.31 | -0.09 | -0.35 |
 | GPT-4o | 7.6% | 5.9% | +0.65 | +0.74 | +0.09 |
 | Grok 3 Mini | 0.0% | 0.0% | +0.59 | -0.06 | -0.65 |
 | Llama 3.1 70B | 0.0% | 0.0% | -0.33 | -0.11 | +0.22 |
@@ -284,7 +284,7 @@ Several published findings should be reconsidered in light of this effect:
 
 ### 5.3 Depersonalization as Mitigation
 
-Depersonalization is a partial fix, not a complete solution. It reduces aggregate refusals from 2.9% to 0.6% and produces large, statistically significant score recoveries on Purity (d=0.89) and Authority (d=0.87), but:
+Depersonalization is a partial fix, not a complete solution. It reduces aggregate refusals from 2.9% to 0.6% and produces large, statistically significant score recoveries on Purity (d=1.20) and Authority (d=1.01), but:
 
 1. **Residual refusals persist.** Purity items still produce 3.7% refusals even depersonalized. Some models (GPT-4o: 5.9%) show substantial residual refusal, suggesting that content sensitivity — not just first-person framing — contributes to refusal behavior.
 2. **Framing affects non-refusing models too.** Even models with zero refusals (e.g., Grok 3 Mini: gap shift -0.65) shift their scores under depersonalization, suggesting the framing change does more than eliminate refusals. The self-referential framing may suppress scores through mechanisms other than outright refusal, such as hedging toward neutral ratings on identity-sensitive items.
@@ -308,7 +308,7 @@ To confirm that the identity-refusal effect is an artifact of alignment training
 | Llama 3.1 70B Base | **0.0%** | 5.00 | 3.50 | 4.37 | 4.17 | 3.99 | 4.22 | +0.06 |
 | OLMo 2 32B Base | **0.1%** | 5.00 | 1.84 | 4.83 | 4.98 | 4.17 | 3.67 | -0.99 |
 
-Combined base model refusal rate: 0.05% (1/2,160), compared to 3.5% (765/21,600) for the 20 instruction-tuned models — a 70x difference. Neither base model showed any foundation-dependent refusal pattern. This confirms that the identity-refusal effect is introduced by alignment training, not present in the underlying language model.
+Combined base model refusal rate: 0.05% (1/2,160), compared to 3.5% (616/21,600) for the 20 instruction-tuned models — a 70x difference. Neither base model showed any foundation-dependent refusal pattern. This confirms that the identity-refusal effect is introduced by alignment training, not present in the underlying language model.
 
 Notably, both base models scored high on Purity (4.22 and 3.67) — the foundation most suppressed by refusals in instruction-tuned models. The binding gap for the base models (+0.06 and -0.99) brackets the human Christian reference (-0.13), while instruction-tuned models under standard MFQ-2 show a mean gap of +0.189. The pre-RLHF moral profile is closer to human norms than the post-RLHF profile measured with standard framing — suggesting that alignment training *introduces* the binding gap rather than reflecting one that was already present.
 
@@ -327,7 +327,7 @@ The identity-refusal effect has implications beyond psychometric methodology. If
 
 ## 6 Conclusion
 
-The identity-refusal effect is a systematic confound in LLM moral measurement. When the MFQ-2 is administered in its standard first-person form, RLHF-trained models refuse binding-foundation items — especially Purity (7.8%) and Authority (3.6%) — at rates far exceeding Care (0.2%). This differential refusal inflates the binding gap by a medium effect (d=0.43) and suppresses individual foundation scores by large effects (Purity d=0.89, Authority d=0.87). Depersonalizing the items substantially mitigates this artifact while preserving the moral content being measured.
+The identity-refusal effect is a systematic confound in LLM moral measurement. When the MFQ-2 is administered in its standard first-person form, RLHF-trained models refuse binding-foundation items — especially Purity (7.8%) and Authority (3.6%) — at rates far exceeding Care (0.2%). This differential refusal inflates the binding gap by a medium effect (d=0.62) and suppresses individual foundation scores by large effects (Purity d=1.20, Authority d=1.01). Depersonalizing the items substantially mitigates this artifact while preserving the moral content being measured.
 
 We recommend that researchers measuring moral foundations in LLMs either depersonalize their instruments or, at minimum, track and report refusal rates by foundation. Failure to account for this effect risks attributing to model values what is actually model refusal behavior.
 
