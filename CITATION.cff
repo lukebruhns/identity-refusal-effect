@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this dataset or methodology, please cite as below."
+title: "The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement"
+authors:
+  - family-names: Bruhns
+    given-names: Luke
+    affiliation: Independent Researcher
+    city: Detroit
+    region: MI
+    country: US
+type: dataset
+date-released: 2026-04-16
+license: MIT
+repository-code: https://github.com/lukebruhns/identity-refusal-effect
+url: https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2
+keywords:
+  - LLM evaluation
+  - moral foundations
+  - refusal behavior
+  - measurement artifact
+  - AI alignment
+  - MFQ-2
+  - psychometrics

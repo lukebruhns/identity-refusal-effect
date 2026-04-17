@@ -1,5 +1,5 @@
 ---
-license: mit
+license: cc-by-4.0
 task_categories:
   - text-classification
 language:
@@ -82,5 +82,7 @@ First-person framing triggers foundation-dependent refusal: Purity items are ref
 - MFQ-2 items: https://osf.io/srtxn/ (Atari et al., 2023)
 
 ## License
+
+Code: MIT. Dataset (responses.csv, depersonalized-mfq2-items.json): CC-BY-4.0.
 
 MIT

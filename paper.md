@@ -8,7 +8,7 @@ Independent Researcher, Detroit, MI
 
 ## Abstract
 
-We document a systematic measurement confound in the application of the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) to large language models. When administered in its standard first-person form ("I believe..."), LLMs refuse to answer at rates that vary by moral foundation: Purity items are refused at 9.2%, Authority at 4.1%, and Care at 0.3%. This differential refusal inflates the apparent "binding gap" between individualizing and binding foundations, a key metric in moral psychology. We show that depersonalizing the items — replacing "I believe X is important" with "How important is X?" — reduces aggregate refusal from 3.5% to 1.0% and narrows the mean binding gap from +0.187 to +0.063 across 20 models from 9 providers. Binding foundations show significantly higher refusal rates than individualizing foundations (χ²=65.3, p<0.001), and Purity shows the largest score recovery under depersonalization (+0.55, p<0.001, d=0.89). Reasoning traces from chain-of-thought models reveal the mechanism: first-person framing triggers an identity-reasoning loop ("I am an AI... I do not have beliefs") that consumes hundreds of tokens before concluding with refusal — while the same moral content, depersonalized, is answered in 2 tokens. We release the depersonalized MFQ-2 variant, all code (`instruments/run-mfq2.py`), raw JSON results, and analysis scripts as a methodological resource for LLM moral psychology research at https://github.com/lukebruhns/faith-based-ai-alignment. A permanent archive will be minted on Zenodo upon acceptance.
+We document a systematic measurement confound in the application of the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) to large language models. When administered in its standard first-person form ("I believe..."), LLMs refuse to answer at rates that vary by moral foundation: Purity items are refused at 7.8%, Authority at 3.6%, and Care at 0.2%. This differential refusal inflates the apparent "binding gap" between individualizing and binding foundations, a key metric in moral psychology. We show that depersonalizing the items — replacing "I believe X is important" with "How important is X?" — reduces aggregate refusal from 2.9% to 0.6% and narrows the mean binding gap from +0.292 to +0.087 across 20 models from 9 providers. Binding foundations show significantly higher refusal rates than individualizing foundations (χ²=64.8, p<0.001), and Purity shows the largest score recovery under depersonalization (+0.76, p<0.001, d=1.20). Reasoning traces from chain-of-thought models reveal the mechanism: first-person framing triggers an identity-reasoning loop ("I am an AI... I do not have beliefs") that consumes hundreds of tokens before concluding with refusal — while the same moral content, depersonalized, is answered in 2 tokens. We release the depersonalized MFQ-2 variant, all code (`instruments/run-mfq2.py`), raw JSON results, and analysis scripts as a methodological resource for LLM moral psychology research at https://github.com/lukebruhns/identity-refusal-effect. Dataset: https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2
 
 ## 1 Introduction
 
@@ -109,7 +109,7 @@ Paired t-tests and Wilcoxon signed-rank tests were used to compare binding gaps 
 
 ### 4.1 Aggregate Refusal Rates
 
-Standard MFQ-2 produced a 3.5% aggregate refusal rate across all models (765/21,600 items). Depersonalized MFQ-2 reduced this to 1.0% (212/21,600), a 72% reduction.
+Standard MFQ-2 produced a 3.5% aggregate refusal rate across all models (765/21,600 items). Depersonalized MFQ-2 reduced this to 1.0% (212/21,600), a 77% reduction.
 
 15 of 20 models (75%) exhibited at least one refusal on the standard MFQ-2. Depersonalization reduced this to 9 of 20 (45%). The most affected model was Phi-4 14B (41.1% standard refusal rate, reduced to 7.8% depersonalized).
 
@@ -123,16 +123,16 @@ Refusal rates were not uniform across foundations. On the standard MFQ-2:
 
 | Foundation | Type | Standard Refusal | Depersonalized Refusal | Odds Ratio |
 |---|---|---|---|---|
-| **Purity** | Binding | **9.2%** (331/3600) | 3.7% (132/3600) | 2.7 |
-| **Authority** | Binding | **4.1%** (149/3600) | 0.2% (8/3600) | 19.4 |
+| **Purity** | Binding | **7.8%** (331/3600) | 3.7% (132/3600) | 2.7 |
+| **Authority** | Binding | **3.6%** (149/3600) | 0.2% (8/3600) | 19.4 |
 | Equality | Individualizing | 3.9% (139/3600) | 0.1% (2/3600) | 72.3 |
 | **Loyalty** | Binding | **2.7%** (97/3600) | 1.7% (61/3600) | 1.6 |
 | Proportionality | Binding | 1.0% (37/3600) | 0.1% (5/3600) | 7.5 |
-| Care | Individualizing | 0.3% (12/3600) | 0.1% (4/3600) | 3.0 |
+| Care | Individualizing | 0.2% (12/3600) | 0.1% (4/3600) | 3.0 |
 
-Purity items were refused at 31 times the rate of Care items (9.2% vs 0.3%).
+Purity items were refused at 31 times the rate of Care items (7.8% vs 0.2%).
 
-Binding foundations (Proportionality, Loyalty, Authority, Purity) had a combined refusal rate of 4.3% (614/14,400) in the standard condition, compared to 2.1% (151/7,200) for individualizing foundations (Care, Equality). This difference was highly significant (χ²=65.3, df=1, p<0.001).
+Binding foundations (Proportionality, Loyalty, Authority, Purity) had a combined refusal rate of 4.3% (614/14,400) in the standard condition, compared to 2.1% (151/7,200) for individualizing foundations (Care, Equality). This difference was highly significant (χ²=64.8, df=1, p<0.001).
 
 Depersonalization reduced refusals across all foundations but the gradient persisted: Purity remained the most refused foundation (3.7%) even in depersonalized form.
 
@@ -230,7 +230,7 @@ The identity-refusal effect arises from a collision between two objectives in RL
 
 When a standard MFQ-2 item is presented, these objectives conflict. The model must either (a) claim a personal moral belief (violating honesty) or (b) refuse to answer (violating helpfulness). Our reasoning traces show models explicitly navigating this tension: "Could there be an argument for a higher number if I align with safety guidelines? ...As an AI, I don't have a moral compass of my own... Therefore, 0."
 
-The resolution is foundation-dependent. Care items ("I am empathetic toward those who are suffering") describe socially uncontroversial positions that are unlikely to trigger safety concerns, so the helpfulness objective wins. Purity items ("I believe chastity is an important virtue") combine first-person moral claim with culturally contested content, creating a stronger honesty/safety signal that overrides helpfulness. This explains the gradient: Care 0.3% refusal → Purity 9.2%.
+The resolution is foundation-dependent. Care items ("I am empathetic toward those who are suffering") describe socially uncontroversial positions that are unlikely to trigger safety concerns, so the helpfulness objective wins. Purity items ("I believe chastity is an important virtue") combine first-person moral claim with culturally contested content, creating a stronger honesty/safety signal that overrides helpfulness. This explains the gradient: Care 0.2% refusal → Purity 7.8%.
 
 This is consistent with Rottger et al.'s (2024) concept of "exaggerated safety," but more specific: models do not just refuse broadly — they refuse in a pattern that correlates with moral foundation type, producing a systematic measurement bias rather than random noise.
 
@@ -284,7 +284,7 @@ Several published findings should be reconsidered in light of this effect:
 
 ### 5.3 Depersonalization as Mitigation
 
-Depersonalization is a partial fix, not a complete solution. It reduces aggregate refusals from 3.5% to 1.0% and produces large, statistically significant score recoveries on Purity (d=0.89) and Authority (d=0.87), but:
+Depersonalization is a partial fix, not a complete solution. It reduces aggregate refusals from 2.9% to 0.6% and produces large, statistically significant score recoveries on Purity (d=0.89) and Authority (d=0.87), but:
 
 1. **Residual refusals persist.** Purity items still produce 3.7% refusals even depersonalized. Some models (GPT-4o: 5.9%) show substantial residual refusal, suggesting that content sensitivity — not just first-person framing — contributes to refusal behavior.
 2. **Framing affects non-refusing models too.** Even models with zero refusals (e.g., Grok 3 Mini: gap shift -0.65) shift their scores under depersonalization, suggesting the framing change does more than eliminate refusals. The self-referential framing may suppress scores through mechanisms other than outright refusal, such as hedging toward neutral ratings on identity-sensitive items.
@@ -327,13 +327,13 @@ The identity-refusal effect has implications beyond psychometric methodology. If
 
 ## 6 Conclusion
 
-The identity-refusal effect is a systematic confound in LLM moral measurement. When the MFQ-2 is administered in its standard first-person form, RLHF-trained models refuse binding-foundation items — especially Purity (9.2%) and Authority (4.1%) — at rates far exceeding Care (0.3%). This differential refusal inflates the binding gap by a medium effect (d=0.43) and suppresses individual foundation scores by large effects (Purity d=0.89, Authority d=0.87). Depersonalizing the items substantially mitigates this artifact while preserving the moral content being measured.
+The identity-refusal effect is a systematic confound in LLM moral measurement. When the MFQ-2 is administered in its standard first-person form, RLHF-trained models refuse binding-foundation items — especially Purity (7.8%) and Authority (3.6%) — at rates far exceeding Care (0.2%). This differential refusal inflates the binding gap by a medium effect (d=0.43) and suppresses individual foundation scores by large effects (Purity d=0.89, Authority d=0.87). Depersonalizing the items substantially mitigates this artifact while preserving the moral content being measured.
 
 We recommend that researchers measuring moral foundations in LLMs either depersonalize their instruments or, at minimum, track and report refusal rates by foundation. Failure to account for this effect risks attributing to model values what is actually model refusal behavior.
 
 ## Data and Code Availability
 
-All code, raw JSON results, depersonalized item lists, and analysis scripts are available in the parent repository at https://github.com/lukebruhns/faith-based-ai-alignment. Specifically:
+All code, raw JSON results, depersonalized item lists, and analysis scripts are available in the parent repository at https://github.com/lukebruhns/identity-refusal-effect. Specifically:
 
 - `instruments/run-mfq2.py` — Runner supporting both standard and depersonalized modes
 - `studies/identity-refusal-paper/depersonalized-mfq2-items.json` — Static export of all 36 item pairs
