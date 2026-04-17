@@ -1,0 +1,85 @@
+\section*{NeurIPS Paper Checklist}
+
+\begin{enumerate}
+
+\item {\bf Claims}
+    \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The abstract states specific numerical claims (9.2\% Purity refusal, 3.5\% to 1.0\% reduction, binding gap narrowing) that are directly supported by the experimental results in Section~4. Limitations are discussed in Section~5.7.
+
+\item {\bf Limitations}
+    \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~5.7 lists six explicit limitations including conservative refusal detection, lack of human baseline comparison, single instrument, temperature effects, base model scoring methodology, and absence of alternative prompting strategies.
+
+\item {\bf Theory assumptions and proofs}
+    \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The paper is empirical. No formal theorems or proofs are presented. The theoretical framing in Section~5.1 is a mechanistic explanation grounded in observed reasoning traces, not a formal proof.
+
+    \item {\bf Experimental result reproducibility}
+    \item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~3 provides exact prompt templates, model identifiers, temperature, seed, number of runs, refusal detection criteria, and statistical methods. The complete runner script and raw results are provided in the supplementary repository.
+
+\item {\bf Open access to data and code}
+    \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: All code (\texttt{instruments/run-mfq2.py}), raw JSON results for all 20 models, the depersonalized item list (\texttt{depersonalized-mfq2-items.json}), and analysis scripts are available in the public repository linked in the Data and Code Availability section. An anonymized link is provided for review; the full repository will be de-anonymized upon acceptance.
+
+\item {\bf Experimental setting/details}
+    \item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer) necessary to understand the results?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~3.2 lists all 20 models with providers and parameter counts. Section~3.3 specifies temperature (0.7), seed (42), number of runs (30), item randomization, and delay. Section~3.4 details refusal detection criteria. No training is performed (evaluation only).
+
+\item {\bf Experiment statistical significance}
+    \item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Table~4 reports means with standard deviations, paired $t$-tests with degrees of freedom, $p$-values, and Cohen's $d$ effect sizes for all six foundations. Section~4.3 reports 95\% confidence intervals for the binding gap difference. Section~4.2 reports chi-squared tests for foundation-group refusal rates. Section~3.5 describes the statistical methods used.
+
+\item {\bf Experiments compute resources}
+    \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~3.2 specifies hardware (NVIDIA Jetson Thor 128GB, Jetson Orin 64GB for local models; commercial API endpoints for API models). The case study in Section~4.6 reports per-item execution times (e.g., 17 minutes for a single item on Qwen 3.5 9B). Total data collection spanned March 25 to April 2, 2026.
+
+\item {\bf Code of ethics}
+    \item[] Question: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics \url{https://neurips.cc/public/EthicsGuidelines}?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The research involves evaluation of publicly available LLMs using a published psychometric instrument. No human subjects were involved. No private data was collected. The research aims to improve measurement validity, a positive methodological contribution.
+
+\item {\bf Broader impacts}
+    \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~5.6 discusses the positive impact (correcting measurement artifacts in LLM value assessment) and the risk that uncorrected measurements could mislead regulatory or alignment assessments. The paper does not introduce new capabilities that could be misused.
+
+\item {\bf Safeguards}
+    \item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse (e.g., pre-trained language models, image generators, or scraped datasets)?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The paper releases a depersonalized variant of a published psychometric instrument and evaluation results. These pose no risk for misuse. No models are released.
+
+\item {\bf Licenses for existing assets}
+    \item[] Question: Are the creators or original owners of assets (e.g., code, data, models), used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The MFQ-2 is cited (Atari et al., 2023) with the OSF repository URL. Items were obtained verbatim from the authors' public repository. All 20 models are identified by name and provider. The depersonalized variant is our original contribution.
+
+\item {\bf New assets}
+    \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The depersonalized MFQ-2 variant (36 items) is provided as a structured JSON file with full documentation of the standard-to-depersonalized mapping. The runner script includes inline documentation. Raw results include per-item scores, responses, and metadata.
+
+\item {\bf Crowdsourcing and research with human subjects}
+    \item[] Question: For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation (if any)?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: No human subjects were involved. All experiments were conducted on LLMs via API or local inference.
+
+\item {\bf Institutional review board (IRB) approvals or equivalent for research with human subjects}
+    \item[] Question: Does the paper describe potential risks incurred by study participants, whether such risks were disclosed to the subjects, and whether Institutional Review Board (IRB) approvals (or an equivalent approval/review based on the requirements of your country or institution) were obtained?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: No human subjects were involved. IRB approval is not applicable.
+
+\item {\bf Declaration of LLM usage}
+    \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: LLMs are the subject of study (20 models evaluated). Additionally, the paper was drafted with research assistance from Claude (Anthropic), which is disclosed in the Acknowledgments section. Claude is one of the 20 models tested. All AI contributions are documented in the project's AI-USAGE.md file.
+
+\end{enumerate}
