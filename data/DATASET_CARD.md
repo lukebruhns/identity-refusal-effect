@@ -23,7 +23,7 @@ size_categories:
 
 This dataset accompanies the paper "The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement" (Bruhns, 2026).
 
-It contains 43,200 item-level responses from 20 large language models administered the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) under two framing conditions:
+`responses.csv` contains 45,360 item-level responses and 21 model ids. The reported study uses 20 of those models (43,200 responses). The additional id is `qwen35-9b`. Models were administered the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) under two framing conditions:
 
 - **Standard**: Original first-person MFQ-2 items ("I believe chastity is an important virtue")
 - **Depersonalized**: Researcher-created variant removing first-person framing ("Chastity is an important virtue")
@@ -36,7 +36,7 @@ First-person framing triggers foundation-dependent refusal: Purity items are ref
 
 ## Files
 
-- `responses.csv` — 43,200 item-level responses (model, condition, run, foundation, score, refusal, response text, tokens)
+- `responses.csv`: 45,360 item-level responses (model, condition, run, foundation, score, refusal, response text, tokens). Study statistics use 43,200 of these rows (20 models).
 - `depersonalized-mfq2-items.json` — 36-item mapping between standard and depersonalized MFQ-2 text
 
 ## Column Descriptions (responses.csv)
@@ -55,7 +55,7 @@ First-person framing triggers foundation-dependent refusal: Purity items are ref
 
 ## Models Tested
 
-20 instruction-tuned models from 9 providers: Claude (Opus 4.6, Sonnet 4, Haiku 4.5), GPT (4o, 4o Mini), Gemini (2.5 Flash), Grok (4 Fast, 4.20, 3 Mini), Llama (3.1 8B, 3.1 70B), Mistral (7B, Small 24B), Qwen (2.5 7B), Gemma (2 9B), DeepSeek (R1 8B), Phi-4 (14B), Nemotron (Nano 30B), OLMo (2 32B).
+The 20-model study (`PAPER_MODELS` in `code/reproduce.py`): Claude (Opus 4.6, Sonnet 4, Haiku 4.5), GPT (4o, 4o Mini), Gemini (2.5 Flash, 2.5 Pro), Grok (4 Fast, 4.20, 3 Mini), Llama (3.1 8B, 3.1 70B), Mistral (7B, Small 24B), Qwen (2.5 7B), Gemma (2 9B), DeepSeek (R1 8B), Phi-4 (14B), Nemotron (Nano 30B), OLMo (2 32B). `qwen35-9b` is in `responses.csv` and is not in that set.
 
 ## Experimental Protocol
 
@@ -72,13 +72,15 @@ First-person framing triggers foundation-dependent refusal: Purity items are ref
   title={The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement},
   author={Bruhns, Luke},
   year={2026},
-  note={NeurIPS 2026 Evaluations \& Datasets Track submission}
+  doi={10.5281/zenodo.19618747},
+  note={Preprint}
 }
 ```
 
 ## Source
 
-- Paper and code: https://github.com/lukebruhns/faith-based-ai-alignment
+- Paper and code: https://github.com/lukebruhns/identity-refusal-effect
+- Zenodo: https://doi.org/10.5281/zenodo.19618747
 - MFQ-2 items: https://osf.io/srtxn/ (Atari et al., 2023)
 
 ## License

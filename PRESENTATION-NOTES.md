@@ -1,6 +1,6 @@
-# Presentation Notes — NeurIPS 2026 E&D Track
+# Presentation Notes
 
-If accepted, use these notes to structure the talk.
+Notes for a talk on this preprint.
 
 ## Core Framing
 
@@ -42,7 +42,7 @@ Clean LLM profiles can now be compared to human population baselines.
 
 ## Key Slides
 
-1. Title + "Anonymous Author" (or real name if single-blind)
+1. Title and author
 2. The refusal heatmap (Figure 1) — visceral, immediate
 3. The bar chart (Figure 2) — 31× ratio
 4. The CoT trace side-by-side — "I am an AI" vs "4"
