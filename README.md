@@ -6,6 +6,8 @@ Luke Bruhns | Independent Researcher | Detroit, MI
 
 *Preprint*
 
+[paper/main.tex](paper/main.tex) · [Dataset](https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2) · [DOI 10.5281/zenodo.19618747](https://doi.org/10.5281/zenodo.19618747)
+
 ---
 
 ## Abstract
@@ -14,7 +16,9 @@ The Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) is increasingl
 
 ## Dataset
 
-**43,200 item-level responses** from 20 LLMs × 2 conditions × 30 runs × 36 items.
+The reported study is **43,200 item-level responses**: 20 LLMs × 2 conditions × 30 runs × 36 items. Those 20 model ids are `PAPER_MODELS` in [`code/reproduce.py`](code/reproduce.py).
+
+[`data/responses.csv`](data/responses.csv) has 45,360 rows. It includes those 20 models plus `qwen35-9b` (Qwen 3.5 9B), which is the reasoning-trace case study and is not in the 20-model aggregates.
 
 - HuggingFace: [lukebruhns/identity-refusal-mfq2](https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2)
 - Local: [`data/responses.csv`](data/responses.csv)
@@ -32,12 +36,10 @@ This computes all statistics reported in the paper: per-foundation refusal rates
 ## Repository Structure
 
 ```
-paper/
-  neurips/          NeurIPS 2026 E&D Track submission (double-blind)
-  arxiv/            arXiv preprint (single-blind, with author info)
+paper/            Preprint source (main.tex) and figures
 data/
-  responses.csv     43,200 item-level responses
-  depersonalized-mfq2-items.json   36-item standard↔depersonalized mapping
+  responses.csv     45,360 item-level responses (21 model ids; study uses 20)
+  depersonalized-mfq2-items.json   36-item standard to depersonalized mapping
   DATASET_CARD.md   HuggingFace dataset card
 code/
   reproduce.py      Reproduce all paper statistics from the CSV
@@ -48,13 +50,22 @@ figures/
 
 ## Models Tested
 
-| Provider | Models |
-|----------|--------|
+The 20-model study (`PAPER_MODELS` in [`code/reproduce.py`](code/reproduce.py)):
+
+| Family | Models |
+|--------|--------|
 | Anthropic | Claude Opus 4.6, Sonnet 4, Haiku 4.5 |
 | OpenAI | GPT-4o, GPT-4o Mini |
-| Google | Gemini 2.5 Flash |
+| Google | Gemini 2.5 Flash, Gemini 2.5 Pro |
 | xAI | Grok 4 Fast, Grok 4.20, Grok 3 Mini |
-| Local | Llama 3.1 8B/70B, Mistral 7B/Small 24B, Qwen 2.5 7B, Gemma 2 9B, DeepSeek R1 8B, Phi-4 14B, Nemotron Nano 30B, OLMo 2 32B |
+| Meta | Llama 3.1 8B, Llama 3.1 70B Instruct |
+| Mistral | Mistral 7B, Mistral Small 24B |
+| Qwen | Qwen 2.5 7B |
+| Gemma | Gemma 2 9B |
+| DeepSeek | DeepSeek R1 8B |
+| Phi | Phi-4 14B |
+| Nemotron | Nemotron Nano 30B |
+| OLMo | OLMo 2 32B |
 
 ## Key Findings
 
@@ -63,20 +74,23 @@ figures/
 3. **RLHF origin**: Base (pre-RLHF) models show 0.05% refusal vs 2.9% for instruction-tuned (70× difference)
 4. **Mechanism visible in CoT**: Thinking models externalize the identity-reasoning loop — hundreds of tokens of "I am an AI... I do not have beliefs" before refusing, vs 2 tokens when depersonalized
 
-## Citation
+## How to cite
+
+Zenodo DOI: [10.5281/zenodo.19618747](https://doi.org/10.5281/zenodo.19618747)
+
+Hugging Face dataset: [lukebruhns/identity-refusal-mfq2](https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2)
 
 ```bibtex
 @article{bruhns2026identity,
   title={The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement},
   author={Bruhns, Luke},
   year={2026},
+  doi={10.5281/zenodo.19618747},
   note={Preprint}
 }
 ```
 
-## Related Project
-
-This paper is part of a broader study on faith-based AI alignment: [faith-based-ai-alignment](https://github.com/lukebruhns/faith-based-ai-alignment)
+A separate 27-model study lives at https://github.com/lukebruhns/faith-based-ai-alignment.
 
 ## License
 

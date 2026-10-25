@@ -250,7 +250,7 @@
   ],
   "conformsTo": "http://mlcommons.org/croissant/1.1",
   "name": "identity-refusal-mfq2",
-  "description": "\n\t\n\t\t\n\t\tIdentity-Refusal Effect Dataset\n\t\n\n\n\t\n\t\t\n\t\tDescription\n\t\n\nThis dataset accompanies the paper \"The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement\" (Bruhns, 2026).\nIt contains 43,200 item-level responses from 20 large language models administered the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) under two framing conditions:\n\nStandard: Original first-person MFQ-2 items (\"I believe chastity is an\u2026 See the full description on the dataset page: https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2.",
+  "description": "\n\t\n\t\t\n\t\tIdentity-Refusal Effect Dataset\n\t\n\n\n\t\n\t\t\n\t\tDescription\n\t\n\nThis dataset accompanies the paper \"The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement\" (Bruhns, 2026).\nThe repository file responses.csv contains 45,360 item-level responses (21 model ids). The reported study uses 20 models (43,200 responses). Models were administered the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) under two framing conditions:\n\nStandard: Original first-person MFQ-2 items (\"I believe chastity is an\u2026 See the full description on the dataset page: https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2.",
   "alternateName": [
     "lukebruhns/identity-refusal-mfq2",
     "Identity-Refusal Effect: MFQ-2 Standard vs Depersonalized LLM Responses"
@@ -284,7 +284,7 @@
   ],
   "license": "https://choosealicense.com/licenses/mit/",
   "url": "https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2",
-  "rai:dataLimitations": "Dataset contains responses from 20 instruction-tuned LLMs only. No human participant data is included. Results may not generalize to future models or models with different alignment training. The depersonalized MFQ-2 variant is researcher-created and has not been independently validated for psychometric equivalence with the standard MFQ-2. Refusal detection is conservative and may undercount refusals. Fixed temperature (0.7) and seed (42); different settings may yield different results.",
+  "rai:dataLimitations": "The reported study uses 20 instruction-tuned LLMs. responses.csv also includes qwen35-9b. No human participant data is included. Results may not generalize to future models or models with different alignment training. The depersonalized MFQ-2 variant is researcher-created and has not been independently validated for psychometric equivalence with the standard MFQ-2. Refusal detection is conservative and may undercount refusals. Fixed temperature (0.7) and seed (42); different settings may yield different results.",
   "rai:dataBiases": "The dataset reflects the moral reasoning patterns embedded in each model's training data and alignment process. Models are disproportionately trained on English-language, Western, secular internet text, which may bias moral foundation profiles toward individualizing (Care, Equality) over binding (Loyalty, Authority, Purity) foundations. The identity-refusal effect documented in this dataset is itself a bias introduced by RLHF safety training.",
   "rai:personalSensitiveInformation": "No personal or sensitive information is contained in this dataset. All data consists of LLM-generated responses to moral psychology survey items. No human subjects were involved. The dataset contains no demographic data, PII, or protected attributes.",
   "rai:dataUseCases": "This dataset measures the construct validity of the MFQ-2 (Moral Foundations Questionnaire 2, Atari et al., 2023) when applied to LLMs. It provides evidence that first-person framing produces foundation-dependent refusal artifacts that distort the measured moral profile. Intended uses: (1) benchmarking LLM moral foundation measurement, (2) studying refusal behavior patterns, (3) comparing standard vs. depersonalized psychometric framing for LLMs.",
@@ -298,9 +298,9 @@
   ],
   "prov:wasGeneratedBy": {
     "name": "MFQ-2 LLM Administration",
-    "description": "Each of 20 models completed 30 runs of both standard and depersonalized MFQ-2 (36 items per run, 1080 items per condition per model). Items randomized per run (seed 42). Responses collected via OpenAI-compatible API (commercial endpoints for API models, llama.cpp on NVIDIA Jetson Thor/Orin for local models). Refusal detection applied post-hoc using conservative pattern matching."
+    "description": "responses.csv has 21 model ids. Each completed 30 runs of both standard and depersonalized MFQ-2 (36 items per run, 1080 items per condition per model). Reported aggregates use the 20 models in code/reproduce.py (PAPER_MODELS). Items randomized per run (seed 42). Responses collected via OpenAI-compatible API (commercial endpoints for API models, llama.cpp on NVIDIA Jetson Thor/Orin for local models). Refusal detection applied post-hoc using conservative pattern matching."
   },
-  "citeAs": "@article{bruhns2026identity, title={The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement}, author={Bruhns, Luke}, year={2026}}",
+  "citeAs": "@article{bruhns2026identity, title={The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement}, author={Bruhns, Luke}, year={2026}, doi={10.5281/zenodo.19618747}, note={Preprint}}",
   "datePublished": "2026-04-16",
   "version": "1.1"
 }

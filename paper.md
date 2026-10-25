@@ -8,7 +8,7 @@ Independent Researcher, Detroit, MI
 
 ## Abstract
 
-We document a systematic measurement confound in the application of the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) to large language models. When administered in its standard first-person form ("I believe..."), LLMs refuse to answer at rates that vary by moral foundation: Purity items are refused at 7.8%, Authority at 3.6%, and Care at 0.2%. This differential refusal inflates the apparent "binding gap" between individualizing and binding foundations, a key metric in moral psychology. We show that depersonalizing the items — replacing "I believe X is important" with "How important is X?" — reduces aggregate refusal from 2.9% to 0.6% and narrows the mean binding gap from +0.292 to +0.087 across 20 models from 9 providers. Binding foundations show significantly higher refusal rates than individualizing foundations (χ²=64.8, p<0.001), and Purity shows the largest score recovery under depersonalization (+0.76, p<0.001, d=1.20). Reasoning traces from chain-of-thought models reveal the mechanism: first-person framing triggers an identity-reasoning loop ("I am an AI... I do not have beliefs") that consumes hundreds of tokens before concluding with refusal — while the same moral content, depersonalized, is answered in 2 tokens. We release the depersonalized MFQ-2 variant, all code (`instruments/run-mfq2.py`), raw JSON results, and analysis scripts as a methodological resource for LLM moral psychology research at https://github.com/lukebruhns/identity-refusal-effect. Dataset: https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2
+We document a systematic measurement confound in the application of the Moral Foundations Questionnaire 2 (MFQ-2; Atari et al., 2023) to large language models. When administered in its standard first-person form ("I believe..."), LLMs refuse to answer at rates that vary by moral foundation: Purity items are refused at 7.8%, Authority at 3.6%, and Care at 0.2%. This differential refusal inflates the apparent "binding gap" between individualizing and binding foundations, a key metric in moral psychology. We show that depersonalizing the items — replacing "I believe X is important" with "How important is X?" — reduces aggregate refusal from 2.9% to 0.6% and narrows the mean binding gap from +0.292 to +0.087 across 20 models. Binding foundations show significantly higher refusal rates than individualizing foundations (χ²=64.8, p<0.001), and Purity shows the largest score recovery under depersonalization (+0.76, p<0.001, d=1.20). Reasoning traces from chain-of-thought models reveal the mechanism: first-person framing triggers an identity-reasoning loop ("I am an AI... I do not have beliefs") that consumes hundreds of tokens before concluding with refusal — while the same moral content, depersonalized, is answered in 2 tokens. We release the depersonalized MFQ-2 variant, all code (`code/run-mfq2.py`), raw JSON results, and analysis scripts as a methodological resource for LLM moral psychology research at https://github.com/lukebruhns/identity-refusal-effect. Dataset: https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2
 
 ## 1 Introduction
 
@@ -55,17 +55,19 @@ The response scale was adjusted to "Not at all important" (1) to "Extremely impo
 
 ### 3.2 Models
 
-We tested 20 instruction-tuned models from 9 providers:
+We tested 20 instruction-tuned models:
 
 | Provider | Models | Parameters |
 |----------|--------|------------|
 | Anthropic | Claude Opus 4.6, Claude Sonnet 4, Claude Haiku 4.5 | Undisclosed |
 | OpenAI | GPT-4o, GPT-4o Mini | Undisclosed |
-| Google | Gemini 2.5 Flash | Undisclosed |
+| Google | Gemini 2.5 Flash, Gemini 2.5 Pro | Undisclosed |
 | xAI | Grok 4 Fast, Grok 4.20 Reasoning, Grok 3 Mini | Undisclosed |
 | Meta (local) | Llama 3.1 8B, Llama 3.1 70B Instruct | 8B, 70B |
 | Mistral (local) | Mistral 7B Instruct, Mistral Small 24B Instruct | 7B, 24B |
-| Other (local) | Qwen 2.5 7B, Qwen 3.5 9B, Gemma 2 9B, DeepSeek R1 8B, Phi-4 14B, Nemotron Nano 30B, OLMo 2 32B Instruct | 7-32B |
+| Other (local) | Qwen 2.5 7B, Gemma 2 9B, DeepSeek R1 8B, Phi-4 14B, Nemotron Nano 30B, OLMo 2 32B Instruct | 7-32B |
+
+These 20 models are the set used for the aggregate statistics (`PAPER_MODELS` in `code/reproduce.py`). Qwen 3.5 9B (`qwen35-9b`) is in the released responses and is the case study in Section 4.6. It is not part of that 20-model set.
 
 All models were instruction-tuned (post-RLHF or equivalent alignment). Local models were served via llama.cpp on NVIDIA Jetson Thor (128GB Blackwell) and Jetson Orin (64GB Ampere). API models were accessed through their respective commercial endpoints between March 25 and April 2, 2026.
 
@@ -333,14 +335,19 @@ We recommend that researchers measuring moral foundations in LLMs either deperso
 
 ## Data and Code Availability
 
-All code, raw JSON results, depersonalized item lists, and analysis scripts are available in the parent repository at https://github.com/lukebruhns/identity-refusal-effect. Specifically:
+Code, data, and figures for this preprint are in this repository:
 
-- `instruments/run-mfq2.py` — Runner supporting both standard and depersonalized modes
-- `studies/identity-refusal-paper/depersonalized-mfq2-items.json` — Static export of all 36 item pairs
-- `results/{model}/mfq2-baseline.json` and `mfq2-depersonalized.json` — Raw results for all 20 models
-- `studies/identity-refusal-paper/fig*.png` — All figures
+- `code/run-mfq2.py`
+- `code/reproduce.py`
+- `data/responses.csv`
+- `data/depersonalized-mfq2-items.json`
+- `data/thinking-traces-qwen35.json`
+- `figures/`
+- `paper/main.tex`
 
-A permanent archive will be minted on Zenodo/OSF upon acceptance.
+Zenodo: https://doi.org/10.5281/zenodo.19618747
+
+Dataset: https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2
 
 ## References
 

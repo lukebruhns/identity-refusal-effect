@@ -1,8 +1,5 @@
 \documentclass{article}
 
-% NeurIPS 2026 Evaluations & Datasets Track, arXiv preprint
-\usepackage[eandd]{neurips_2026}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -11,15 +8,19 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{nicefrac}
+\usepackage{lmodern}
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{natbib}
 
 \title{The Identity-Refusal Effect: LLMs Systematically Refuse First-Person Moral Self-Report, Distorting Moral Foundation Measurement}
 
 \author{%
-  Anonymous Author(s)
+  Luke Bruhns \\
+  Independent Researcher \\
+  Detroit, MI
 }
 
 \begin{document}
@@ -27,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-The Moral Foundations Questionnaire~2 (MFQ-2; Atari et al., 2023) is increasingly used to characterize moral values in large language models, but its validity for this purpose has not been tested. We show that the MFQ-2's first-person framing (``I believe...'') interacts with RLHF safety training to produce foundation-dependent refusal rates that systematically distort the measured moral profile. Purity items are refused at 7.8\%, Authority at 3.6\%, and Care at 0.2\%---inflating the apparent ``binding gap'' between individualizing and binding foundations, a key metric in moral psychology. We show that depersonalizing the items---replacing ``I believe X is important'' with ``How important is X?''---reduces aggregate refusal from 2.9\% to 0.6\% and narrows the mean binding gap from $+0.292$ to $+0.087$ across 20 models from 9 providers ($t(19)=2.70$, $p=0.014$, $d=0.62$). Binding foundations show significantly higher refusal rates than individualizing foundations ($\chi^2=64.8$, $p<0.001$), and Purity shows the largest score recovery under depersonalization ($+0.76$, $p<0.001$, $d=1.20$). Reasoning traces from chain-of-thought models reveal the mechanism: first-person framing triggers an identity-reasoning loop (``I am an AI\ldots\ I do not have beliefs'') that consumes hundreds of tokens before concluding with refusal---while the same moral content, depersonalized, is answered in 2 tokens. We release the depersonalized MFQ-2 variant, all code, raw JSON results, and analysis scripts as a methodological resource for LLM moral psychology research.\footnote{Repository: \url{https://github.com/[anonymized]}. Dataset and code available at the anonymized repository. Zenodo: \url{https://doi.org/10.5281/zenodo.19618747}.}
+The Moral Foundations Questionnaire~2 (MFQ-2; Atari et al., 2023) is increasingly used to characterize moral values in large language models, but its validity for this purpose has not been tested. We show that the MFQ-2's first-person framing (``I believe...'') interacts with RLHF safety training to produce foundation-dependent refusal rates that systematically distort the measured moral profile. Purity items are refused at 7.8\%, Authority at 3.6\%, and Care at 0.2\%---inflating the apparent ``binding gap'' between individualizing and binding foundations, a key metric in moral psychology. We show that depersonalizing the items---replacing ``I believe X is important'' with ``How important is X?''---reduces aggregate refusal from 2.9\% to 0.6\% and narrows the mean binding gap from $+0.292$ to $+0.087$ across 20 models ($t(19)=2.70$, $p=0.014$, $d=0.62$). Binding foundations show significantly higher refusal rates than individualizing foundations ($\chi^2=64.8$, $p<0.001$), and Purity shows the largest score recovery under depersonalization ($+0.76$, $p<0.001$, $d=1.20$). Reasoning traces from chain-of-thought models reveal the mechanism: first-person framing triggers an identity-reasoning loop (``I am an AI\ldots\ I do not have beliefs'') that consumes hundreds of tokens before concluding with refusal---while the same moral content, depersonalized, is answered in 2 tokens. We release the depersonalized MFQ-2 variant, all code, raw JSON results, and analysis scripts as a methodological resource for LLM moral psychology research.\footnote{Repository: \url{https://github.com/lukebruhns/identity-refusal-effect}. Dataset: \url{https://huggingface.co/datasets/lukebruhns/identity-refusal-mfq2}. Zenodo: \url{https://doi.org/10.5281/zenodo.19618747}.}
 \end{abstract}
 
 %------------------------------------------------------------------
@@ -90,7 +91,7 @@ The response scale was adjusted to ``Not at all important'' (1) to ``Extremely i
 
 \subsection{Models}
 
-We tested 20 instruction-tuned models from 9 providers spanning the full capability spectrum (Table~\ref{tab:models}).
+We tested 20 instruction-tuned models spanning the full capability spectrum (Table~\ref{tab:models}).
 
 \begin{table}[h]
 \centering
@@ -101,17 +102,19 @@ We tested 20 instruction-tuned models from 9 providers spanning the full capabil
 \midrule
 Anthropic & Claude Opus 4.6, Sonnet 4, Haiku 4.5 & Undisclosed \\
 OpenAI & GPT-4o, GPT-4o Mini & Undisclosed \\
-Google & Gemini 2.5 Flash & Undisclosed \\
+Google & Gemini 2.5 Flash, Gemini 2.5 Pro & Undisclosed \\
 xAI & Grok 4 Fast, Grok 4.20, Grok 3 Mini & Undisclosed \\
 Meta (local) & Llama 3.1 8B, Llama 3.1 70B Instruct & 8B, 70B \\
 Mistral (local) & Mistral 7B, Mistral Small 24B & 7B, 24B \\
-Other (local) & Qwen 2.5 7B, Qwen 3.5 9B, Gemma 2 9B, & 7--32B \\
-& DeepSeek R1 8B, Phi-4 14B, Nemotron 30B, OLMo 32B & \\
+Other (local) & Qwen 2.5 7B, Gemma 2 9B, DeepSeek R1 8B, & 7--32B \\
+& Phi-4 14B, Nemotron 30B, OLMo 32B & \\
 \bottomrule
 \end{tabular}
-\caption{Models tested. All are instruction-tuned (post-RLHF or equivalent). Local models served via llama.cpp on NVIDIA Jetson Thor (128GB) and Orin (64GB).}
+\caption{Models in the 20-model aggregate (\texttt{PAPER\_MODELS} in \texttt{code/reproduce.py}). All are instruction-tuned (post-RLHF or equivalent). Local models served via llama.cpp on NVIDIA Jetson Thor (128GB) and Orin (64GB).}
 \label{tab:models}
 \end{table}
+
+These 20 models are the set used for the aggregate statistics. Qwen 3.5 9B (\texttt{qwen35-9b}) is in the released responses and is the case study below. It is not part of that 20-model set.
 
 \subsection{Procedure}
 
@@ -306,9 +309,9 @@ This also has implications for constitutional AI and value alignment work. If an
 The identity-refusal effect is a systematic confound in LLM moral measurement. Standard first-person MFQ-2 administration produces foundation-dependent refusal---Purity 7.8\%, Authority 3.6\%, Care 0.2\%---significantly inflating the binding gap ($d=0.62$, $p=0.014$) and suppressing individual foundation scores (Purity $d=1.20$, Authority $d=1.01$). Depersonalization substantially mitigates this artifact. Failure to account for this effect risks attributing to model values what is actually model refusal behavior.
 
 %------------------------------------------------------------------
-\begin{ack}
+\section*{Acknowledgments}
+
 This research was conducted independently without institutional affiliation or funding. The depersonalized MFQ-2 variant and all data are released as a community resource. This paper was drafted with research assistance from Claude (Anthropic), one of the 20 models tested. Experimental design, data collection, analysis decisions, and conclusions are the author's.
-\end{ack}
 
 %------------------------------------------------------------------
 \bibliographystyle{plainnat}
@@ -391,9 +394,5 @@ Smith-Vaniz, N., Lyon, H., Steigner, L., Armstrong, B., \& Mattei, N. (2025).
 \newblock arXiv:2510.13902.
 
 \end{thebibliography}
-
-%------------------------------------------------------------------
-\newpage
-\input{checklist}
 
 \end{document}
